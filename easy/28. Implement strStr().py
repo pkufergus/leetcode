@@ -1,18 +1,29 @@
 import sys
 
-def p(s):
-    # print(s)
-    pass
+debug=1
 
-int_max = 2 ** 32 - 1
+def p(s):
+    try:
+        if debug == 1:
+            print(s)
+    except:
+        pass
 
 class Solution(object):
-    def is_same(self, haystack, start, needle):
-        for i in range(0,len(needle)):
-            p("com {} {}".format(haystack[i + start - len(needle) + 1], needle[i]))
-            if haystack[i + start - len(needle) + 1] != needle[i]:
-                return False
-        return True
+    def build_next(self, needle):
+        next = [0] * len(needle)
+        j = 0
+        i = 1
+        while i < len(needle):
+            while i < len(needle) and needle[i] != needle[j]:
+                i += 1
+            while i < len(needle) and needle[i] == needle[j]:
+                next[i] = j + 1
+                j += 1
+                i += 1
+            if j > 0:
+                j = next[j - 1]
+        return next
 
     def strStr(self, haystack, needle):
         """
@@ -20,29 +31,24 @@ class Solution(object):
         :type needle: str
         :rtype: int
         """
-        n_sum = 0
-        n_size = len(needle)
-        for n in needle:
-            # print("n={} {}".format(n, ord(n)))
-            n_sum = (n_sum * 10 + ord(n)) % int_max
-
-        p(n_sum)
         if len(haystack) < len(needle):
             return -1
-        sum = 0
-        for i in range(0, len(needle)):
-            sum = (sum * 10 + ord(haystack[i])) % int_max
-        p("sum={}".format(sum))
-        if sum == n_sum and self.is_same(haystack, n_size - 1, needle):
-            return 0
-
-        for i in range(n_size, len(haystack)):
-            sum = (sum - (ord(haystack[i - n_size]) * (10 ** (n_size -1))) % int_max) * 10 + ord(haystack[i])
-            sum = sum % int_max
-            p("sum={}".format(sum))
-            if sum == n_sum and self.is_same(haystack, i, needle):
-                return i - n_size + 1
+        next = self.build_next(needle)
+        p(str(map(str, next)))
+        k, t = 0, 0
+        while k < len(haystack) and t < len(needle):
+            p("k={} {} t= {} {}".format(k, haystack[k], t, needle[t]))
+            if haystack[k] == needle[t]:
+                k += 1
+                t += 1
+            else:
+                if t > 0:
+                    t = next[t - 1]
+                else:
+                    k += 1
+        if t == len(needle):
+            return k - t
         return -1
 
-i = Solution().strStr("mississippi", "mississippi")
+i = Solution().strStr("aabaaabaaac", "aabaaac")
 print i
