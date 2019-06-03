@@ -16,19 +16,19 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        node = max_node = (0, 0, 0)
+        node = max_node = 0
         for i, n in enumerate(nums):
             if i == 0:
-                node = (n, 0, 0)
+                node = n
                 max_node= node
                 continue
-            if n > node[0] + n:
-                node = (n, i, i)
+            if n > node + n:
+                node = n
             else:
-                node = (node[0] + n, node[1], i)
-            if node[0] > max_node[0]:
+                node = node + n
+            if node > max_node:
                 max_node = node
 
-        return max_node[0]
+        return max_node
 
 p(Solution().maxSubArray([-2,1,-3,4,- 1,2,1,-5,4]))
