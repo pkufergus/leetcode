@@ -9,5 +9,7 @@ def p(s):
                 print(s)
             elif isinstance(s, list):
                 print(map(str, s))
+            else:
+                print("{}".format(s))
     except:
         pass
