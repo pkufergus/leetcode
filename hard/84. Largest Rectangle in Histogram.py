@@ -20,7 +20,6 @@ class Solution(object):
                 last_w = last_w + 1
                 area = a * last_w
                 max_area = max(max_area, area)
-            else:
 
 
         return area
