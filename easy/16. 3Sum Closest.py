@@ -1,5 +1,18 @@
 from model.util import *
 
+def sort_list_maopao(nums):
+    N = len(nums)
+    if N <= 1:
+        return
+    for i in range(N):
+        flag = False
+        for j in range(N - 1):
+            if nums[j] > nums[j + 1]:
+                nums[j + 1], nums[j] = nums[j], nums[j + 1]
+                flag = True
+
+        if not flag:
+            return
 class Solution(object):
     def threeSumClosest(self, nums, target):
         """
@@ -9,7 +22,8 @@ class Solution(object):
         """
         r = 0
         diff = 2**32
-        nums.sort()
+        # nums.sort()
+        sort_list_maopao(nums)
         for i, n in enumerate(nums):
             t = target - n
 

@@ -13,3 +13,27 @@ def p(s):
                 print("{}".format(s))
     except:
         pass
+
+
+def sort_list_maopao(nums):
+    N = len(nums)
+    if N <= 1:
+        return
+    for i in range(N):
+        flag = False
+        for j in range(N - 1):
+            if nums[j] > nums[j + 1]:
+                nums[j + 1], nums[j] = nums[j], nums[j + 1]
+                flag = True
+
+        if not flag:
+            return
+
+def qsort_list(nums):
+
+
+if __name__ == "__main__":
+    nums = [6, 4, 5, 9, 7, 3]
+    p(nums)
+    sort_list_maopao(nums)
+    p(nums)
