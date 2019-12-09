@@ -29,7 +29,6 @@ def sort_list_maopao(nums):
         if not flag:
             return
 
-def qsort_list(nums):
 
 
 if __name__ == "__main__":

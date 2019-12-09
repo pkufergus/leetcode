@@ -9,17 +9,15 @@ class Solution(object):
         """
         if len(nums) < 2:
             return True
-        a=[0]*len(nums)
+        k = 0
         for i, n in enumerate(nums):
+            if k < i:
+                return False
             if i == 0:
-                a[i] = n
+                k = n
             else:
-                a[i] = max(i + n, a[i - 1])
-            if a[i] == i:
-                break
-        if a[-1] == 0:
-            return False
+                k = max(i + n, k)
+
         return True
 
-
-p(Solution().canJump([3,2,1,0,4]))
+p(Solution().canJump([2,0,0]))
